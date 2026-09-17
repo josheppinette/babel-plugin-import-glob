@@ -9,6 +9,9 @@
   "files": [
     "index.js"
   ],
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "test": "ava",
     "version:major": "npm version major -m 'v%s'",

@@ -89,7 +89,7 @@ While I do not think we would ever merge the two, I would be open to the idea.
 **Setup**
 
 ```sh
-$ nvm install 16
+$ nvm install 22
 $ direnv allow
 $ pre-commit install
 $ npm install
