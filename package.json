@@ -23,8 +23,8 @@
     "minimatch-capture": "1"
   },
   "devDependencies": {
+    "@babel/core": "7",
     "ava": "5",
-    "babel-core": "6",
     "prettier": "3.8.4"
   }
 }
