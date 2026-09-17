@@ -16,7 +16,7 @@
 
           packages = [
             # language
-            pkgs.nodejs_22
+            pkgs.nodejs_24
 
             # dev
             pkgs.git
