@@ -1,0 +1,27 @@
+name: setup
+runs:
+  using: 'composite'
+  steps:
+    # nix
+    - uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
+      with:
+        summarize: false
+
+    # direnv
+    - shell: bash
+      run: nix profile add .#direnv
+    - shell: bash
+      run: |
+        direnv allow
+        direnv exec . sh -c 'echo $PATH' > "$GITHUB_PATH"
+        direnv export gha >> "$GITHUB_ENV"
+
+    # npm
+    - uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+      with:
+        path: |
+          ~/.npm
+          **/node_modules
+        key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
+    - shell: bash
+      run: npm clean-install

@@ -79,17 +79,20 @@ While I do not think we would ever merge the two, I would be open to the idea.
 
 ### Required Software
 
-- [direnv](https://direnv.net)
-- [git](https://git-scm.com/)
-- [nvm](https://formulae.brew.sh/formula/nvm#default)
+If you are using [nix](https://zero-to-nix.com/start/install/) & [direnv](https://direnv.net/docs/installation.html), then your dev environment will be managed automatically. Otherwise, you will need to manually install the following software:
+
+- [direnv](https://direnv.net/docs/installation.html)
+- [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+- [nvm](https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating)
 - [pre-commit](https://pre-commit.com/#install)
 
 ### Getting Started
 
 **Setup**
 
+> If you are using nvm, you will need to install the correct version of node using `nvm install $(cat .node-version)`.
+
 ```sh
-$ nvm install 22
 $ direnv allow
 $ pre-commit install
 $ npm install
@@ -105,7 +108,12 @@ $ npm test
 
 The publish process is automated by GitHub Actions. Once a release is
 created (at the end of these steps), the package will be published to
-the private GitHub NPM Registry.
+the public npm registry.
+
+Authentication uses npm [trusted publishing](https://docs.npmjs.com/trusted-publishers)
+(OIDC), so no long-lived token is required. This is a one-time setup on
+npmjs.com: configure this repository and the `publish` workflow as a
+trusted publisher for the package.
 
 1. Bump version, commit, and tag:
 

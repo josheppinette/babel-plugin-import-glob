@@ -1,4 +1,5 @@
 .DS_Store
+.direnv
 node_modules
 
 # Add the following files to the allowlist
@@ -6,4 +7,6 @@ node_modules
 !.envrc
 !.github
 !.gitignore
+!.node-version
+!.npmrc
 !.pre-commit-config.yaml
