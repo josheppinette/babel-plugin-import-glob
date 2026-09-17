@@ -14,10 +14,11 @@ function globBase(cwd, pattern) {
 }
 
 function find(cwd, pattern) {
-  const files = glob.sync(pattern, { cwd })
-  return capture.match(files, pattern).map(([filepath, name]) => {
+  const files = glob.sync(pattern, { cwd, absolute: true }).sort()
+  const absolute = path.resolve(cwd, pattern)
+  return capture.match(files, absolute).map(([filepath, name]) => {
     return {
-      filepath: './' + path.relative(cwd, path.resolve(cwd, filepath)),
+      filepath: './' + path.relative(cwd, filepath),
       name,
       id: '_' + crypto.randomBytes(16).toString('hex')
     }
