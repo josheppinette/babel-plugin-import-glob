@@ -103,3 +103,18 @@ test('supports side-effect only imports', (t) => {
 import './fixtures/multiple/foo.txt';`
   )
 })
+
+test('records glob base directories in file metadata', (t) => {
+  const { metadata } = _transform(
+    "import { foo } from './fixtures/multiple/*.txt'",
+    {
+      babelrc: false,
+      filename: __filename,
+      sourceRoot: __dirname,
+      plugins: [resolve(__dirname, '..')]
+    }
+  )
+  t.deepEqual(metadata['import-glob'], {
+    directories: [resolve(__dirname, 'fixtures/multiple')]
+  })
+})

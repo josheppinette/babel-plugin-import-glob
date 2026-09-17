@@ -5,6 +5,14 @@ const path = require('path')
 const glob = require('glob')
 const capture = require('minimatch-capture')
 
+function globBase(cwd, pattern) {
+  let dir = pattern
+  while (glob.hasMagic(dir)) {
+    dir = path.dirname(dir)
+  }
+  return path.resolve(cwd, dir)
+}
+
 function find(cwd, pattern) {
   const files = glob.sync(pattern, { cwd })
   return capture.match(files, pattern).map(([filepath, name]) => {
@@ -60,6 +68,13 @@ module.exports = (core) => {
 
         const cwd = path.dirname(state.file.opts.filename)
         const members = find(cwd, pattern)
+
+        // Record base dirs for bundler dependencies.
+        const metadata = state.file.metadata
+        metadata['import-glob'] = metadata['import-glob'] || {
+          directories: []
+        }
+        metadata['import-glob'].directories.push(globBase(cwd, pattern))
 
         if (!specifiers.length) {
           ast.replaceWithMultiple(
