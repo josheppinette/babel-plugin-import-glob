@@ -1,6 +1,6 @@
 const { resolve } = require('path')
 const { transformSync: _transform } = require('@babel/core')
-const test = require('ava')
+const test = require('ava').default
 
 function transform(code) {
   return _transform(code, {

@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@babel/core": "7",
-    "ava": "5",
+    "ava": "8",
     "prettier": "3.8.4"
   }
 }
